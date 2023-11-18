@@ -2,40 +2,43 @@ import React from 'react';
 import {
   ChakraProvider,
   Box,
-  Text,
-  Link,
-  VStack,
-  Code,
   Grid,
   theme,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+import CallToActionWithVideo from './front_page/index'
+import WithSubnavigation from './front_page/nav_bar'
+import SmallWithNavigation from './footer/index'
+import SignupCard from './login_page/signup'
+import SignIn from './login_page/signin'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import InitailFocus from './generate_menu'
+import GridBlurredBackdrop from './my_recipes/index'
+import GeneratedMenu from './generate_menu/generated_recipe'
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
-          </VStack>
-        </Grid>
-      </Box>
-    </ChakraProvider>
+    <BrowserRouter>
+      <ChakraProvider theme={theme}>
+        <Box textAlign="center" fontSize="xl">
+          <Grid minH="100vh" p={3}>
+            <WithSubnavigation />
+            <ColorModeSwitcher justifySelf="flex-end" />
+            <Routes>
+              <Route path="/" element={<CallToActionWithVideo />} />
+              <Route path="sign_up" element={<SignupCard />} />
+              <Route path="sign_in" element={<SignIn />} />
+              <Route path="new_recipe" element={<InitailFocus />} />
+              <Route path="my_recipes" element={<GridBlurredBackdrop />} />
+              <Route path="generated_recipe" element={
+                <GeneratedMenu />
+            } />
+            </Routes>
+            <SmallWithNavigation />
+          </Grid>
+        </Box>
+      </ChakraProvider>
+    </BrowserRouter>
   );
 }
 
